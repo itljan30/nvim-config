@@ -8,7 +8,8 @@ return {
     },
     config = function()
         -- import lspconfig plugin
-        local lspconfig = require("lspconfig")
+        -- local lspconfig = require("lspconfig")
+        local lspconfig = vim.lsp.config
 
         -- import mason_lspconfig plugin
         local mason_lspconfig = require("mason-lspconfig")
@@ -88,52 +89,39 @@ return {
 
         local inlayHintsEnabled = true
 
-        mason_lspconfig.setup_handlers({
-            -- default handler for installed servers
-            function(server_name)
-                lspconfig[server_name].setup({
-                capabilities = capabilities,
-                })
-            end,
-    
+        vim.lsp.config("*", {
+            capabilities = capabilities,
+        })
+
+        require("mason-lspconfig").setup({
+            automatic_enable = true,
         })
 
         local util = require('lspconfig.util')
 
-        -- require'lspconfig'.biome.setup{
-        --     cmd = { "/home/itljan30/.local/share/nvim/mason/bin/biome", "lsp-proxy" },
-        --     filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue", "svelte" },
-        --     -- root_dir = function(fname)
-        --     --     return require'lspconfig'.util.root_pattern('package.json', 'tsconfig.json', '.biome.config')(fname) or vim.fn.getcwd()
-        --     -- end,
-        --     settings = {
-        --         biome = {
-        --             -- any additional configuration options specific to Biome can go here
-        --         }
-        --     },
-        -- }
-
-        lspconfig.clangd.setup({
-            -- capabilities = capabilities,
-            -- cmd = { "clangd", "--background-index", "--completion-style=detailed", "--clang-tidy", "--suggest-missing-includes" },
-            -- settings = {
-            --     clangd = {
-            --         -- Set to true to enable the background indexing of your code, improving performance for large codebases
-            --         backgroundIndex = true,
-            --         -- Enable Clang Tidy diagnostics
-            --         clangTidy = true,
-            --         -- Add any other necessary settings here
-            --     }
-            -- }
-        })
+        -- vim.lsp.config("clangd", {
+        --     -- capabilities = capabilities,
+        --     -- cmd = { "clangd", "--background-index", "--completion-style=detailed", "--clang-tidy", "--suggest-missing-includes" },
+        --     -- settings = {
+        --     --     clangd = {
+        --     --         -- Set to true to enable the background indexing of your code, improving performance for large codebases
+        --     --         backgroundIndex = true,
+        --     --         -- Enable Clang Tidy diagnostics
+        --     --         clangTidy = true,
+        --     --         -- Add any other necessary settings here
+        --     --     }
+        --     -- }
+        -- })
 
         local inlayHintsEnabled = true
 
-        lspconfig.rust_analyzer.setup({
+        vim.lsp.config("rust_analyzer", {
             settings = {
                 ["rust-analyzer"] = {
                     diagnostics = {
-                        warningsAsHint = { "dead_code", "unused_variables" },
+                        warningsAsHint = { 
+                            "dead_code", "unused_variables" 
+                        },
                     },
                 },
             },

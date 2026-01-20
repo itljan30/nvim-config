@@ -24,11 +24,11 @@ return {
             },
         })
 
-    --     mason_tool_installer.setup({
-    --         ensure_installed = {
-    --             -- "cpplint",
-    --             -- "pyright",
-    --         },
-    --     })
+        mason_tool_installer.setup({
+            ensure_installed = {
+                -- "cpplint",
+                -- "pyright",
+            },
+        })
     end,
 }
